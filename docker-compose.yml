@@ -1,0 +1,16 @@
+version: "3.9"
+
+services:
+  monero-wallet:
+    build: .
+    ports:
+      - "28088:28088"
+    volumes:
+      - ./data:/data
+    networks:
+      - monero
+    command: ["monero-wallet-rpc", "--rpc-bind-ip", "0.0.0.0", "--rpc-bind-port", "28088", "--trusted-daemon", "--non-interactive", "--daemon-address", "http://monerod:18080", "--wallet-dir", "/data", "--confirm-external-bind", "--rpc-login", "test:test"]
+
+networks:
+  monero:
+    external: true
